@@ -14,13 +14,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.db import router
 from django.urls import path, include
-from rest_framework_nested.routers import DefaultRouter, NestedSimpleRouter
-from concession_api.routers import concession_router
+from concession_api.routers import concession_router, router
+from django.http import JsonResponse
+
+def root_view(request):
+    return JsonResponse({"message": "Bienvenue sur l'API Concession. Visitez /api/concessions pour commencer."})
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('', include(concession_router.urls)),
+    path('', root_view),  # Vue pour la route racine
+    path('api/', include(router.urls)),  # Routes de base pour API
+    path('api/', include(concession_router.urls)),  # Routes imbriquées
 ]
 
