@@ -22,3 +22,6 @@ class Vehicule(models.Model):
 
     def __str__(self):
         return f"{self.marque} {self.modele} ({self.immatriculation})"
+
+    class Meta:
+        ordering = ['date_mise_en_service']  # Ordre par date de mise en service croissant
